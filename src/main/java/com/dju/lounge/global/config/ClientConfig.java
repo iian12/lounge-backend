@@ -8,9 +8,7 @@ public enum ClientConfig {
 
     public static ClientConfig fromString(String value) {
         return Arrays.stream(ClientConfig.values())
-                .filter(client ->
-                        client.name().equalsIgnoreCase(value))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(value));
+            .filter(client -> client.name().equalsIgnoreCase(value)).findFirst()
+            .orElseThrow(() -> new IllegalArgumentException(value));
     }
 }

@@ -1,7 +1,11 @@
 package com.dju.lounge.domain.user.model;
 
 import io.hypersistence.utils.hibernate.id.Tsid;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,7 +38,7 @@ public class Users {
 
     @Builder
     public Users(String email, String password, String nickname, String profileImgUrl,
-                 Provider provider, String subjectId, Role role) {
+        Provider provider, String subjectId, Role role) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;

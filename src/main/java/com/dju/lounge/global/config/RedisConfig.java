@@ -32,15 +32,15 @@ public class RedisConfig {
 
     @Bean
     @Qualifier("chatPubSub")
-    public StringRedisTemplate stringRedisTemplate(@Qualifier("chatPubSub") RedisConnectionFactory factory) {
+    public StringRedisTemplate stringRedisTemplate(
+        @Qualifier("chatPubSub") RedisConnectionFactory factory) {
         return new StringRedisTemplate(factory);
     }
 
     @Bean
     public RedisMessageListenerContainer redisMessageListenerContainer(
-            @Qualifier("chatPubSub") RedisConnectionFactory redisConnectionFactory,
-            MessageListenerAdapter messageListenerAdapter
-    ){
+        @Qualifier("chatPubSub") RedisConnectionFactory redisConnectionFactory,
+        MessageListenerAdapter messageListenerAdapter) {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(redisConnectionFactory);
         container.addMessageListener(messageListenerAdapter, new PatternTopic("chat"));
@@ -49,7 +49,7 @@ public class RedisConfig {
 
     //    redis에서 수신된 메시지를 처리하는 객체 생성
     @Bean
-    public MessageListenerAdapter messageListenerAdapter(RedisPubSubService redisPubSubService){
+    public MessageListenerAdapter messageListenerAdapter(RedisPubSubService redisPubSubService) {
 //        RedisPubSubService의 특정 메서드가 수신된 메시지를 처리할수 있도록 지정
         return new MessageListenerAdapter(redisPubSubService, "onMessage");
 

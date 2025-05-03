@@ -32,13 +32,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         String subjectId = getAttribute(oAuth2User, provider, "sub");
 
         Users user = userRepository.findByEmail(email).orElseGet(() -> {
-            Users newUser = Users.builder()
-                    .email(email)
-                    .profileImgUrl(picture)
-                    .subjectId(subjectId)
-                    .provider(oauthProvider)
-                    .role(Role.USER)
-                    .build();
+            Users newUser = Users.builder().email(email).profileImgUrl(picture).subjectId(subjectId)
+                .provider(oauthProvider).role(Role.USER).build();
             return userRepository.save(newUser);
         });
 
@@ -50,14 +45,16 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             return Provider.GOOGLE;
         }
 
-        throw new OAuth2AuthenticationException(new OAuth2Error("Unknown provider: " + registrationId));
+        throw new OAuth2AuthenticationException(
+            new OAuth2Error("Unknown provider: " + registrationId));
     }
 
     private String getAttribute(OAuth2User oAuth2User, String provider, String attributeName) {
         return switch (provider) {
             case "google" -> (String) oAuth2User.getAttributes().get(attributeName);
 
-            default -> throw new OAuth2AuthenticationException(new OAuth2Error("Unknown provider: " + provider));
+            default -> throw new OAuth2AuthenticationException(
+                new OAuth2Error("Unknown provider: " + provider));
         };
     }
 }

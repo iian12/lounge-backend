@@ -1,12 +1,14 @@
 package com.dju.lounge.global.auth;
 
 import com.dju.lounge.domain.user.model.Users;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-
-import java.util.*;
 
 public class CustomUserDetail implements UserDetails, OAuth2User {
 
@@ -43,8 +45,7 @@ public class CustomUserDetail implements UserDetails, OAuth2User {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(
-                new SimpleGrantedAuthority("ROLE_" + user.getRole().name())
-        );
+            new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
     }
 
     @Override

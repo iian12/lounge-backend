@@ -4,14 +4,12 @@ import io.hypersistence.utils.hibernate.id.Tsid;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import java.time.LocalDateTime;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -31,7 +29,7 @@ public class Posts {
     private List<String> tags;
 
     @ElementCollection
-    private List<String> imageUrls;
+    private List<String> fileUrls;
 
     private String thumbnailUrl;
 
@@ -44,13 +42,14 @@ public class Posts {
     private int bookmarkCount;
 
     @Builder
-    public Posts(String title, String content, String userId, String categorySlug, String thumbnailUrl) {
+    public Posts(String title, String content, String userId, String categorySlug,
+        List<String> tags, List<String> fileUrls, String thumbnailUrl) {
         this.title = title;
         this.content = content;
         this.userId = userId;
         this.categorySlug = categorySlug;
-        this.tags = new ArrayList<>();
-        this.imageUrls = new ArrayList<>();
+        this.tags = tags;
+        this.fileUrls = fileUrls;
         this.thumbnailUrl = thumbnailUrl;
         this.createdAt = LocalDateTime.now();
         this.isUpdated = false;
@@ -60,10 +59,11 @@ public class Posts {
         this.bookmarkCount = 0;
     }
 
-    public void updatePost(String title, String content, List<String> tags, List<String> imageUrls) {
+    public void updatePost(String title, String content, List<String> tags,
+        List<String> imageUrls) {
         this.title = title;
         this.content = content;
         this.tags = tags;
-        this.imageUrls = imageUrls;
+        this.fileUrls = imageUrls;
     }
 }

@@ -18,7 +18,8 @@ public class StompController {
     }
 
     @MessageMapping("/{roomId}")
-    public void sendMessage(@DestinationVariable String roomId, ChatMessageDto chatMessageDto) throws JsonProcessingException {
+    public void sendMessage(@DestinationVariable String roomId, ChatMessageDto chatMessageDto)
+        throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         chatMessageDto.setRoomId(roomId);
         String message = objectMapper.writeValueAsString(chatMessageDto);
