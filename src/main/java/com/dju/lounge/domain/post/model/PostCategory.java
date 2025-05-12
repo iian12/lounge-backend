@@ -16,12 +16,18 @@ public class PostCategory {
     private String slug;
 
     private String name;
+    private int postCount;
     private boolean isActive;
 
     @Builder
     public PostCategory(String slug, String name) {
         this.slug = slug;
         this.name = name;
+        this.postCount = 0;
         this.isActive = true;
+    }
+
+    public void addPostCount() {
+        this.postCount++;
     }
 }

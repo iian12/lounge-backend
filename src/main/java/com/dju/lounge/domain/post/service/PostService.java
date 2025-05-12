@@ -73,9 +73,11 @@ public class PostService {
 
         PostCategory category = postCategoryRepository.findById(reqDto.getCategory())
             .orElseThrow(() -> new EntityNotFoundException("PostCategory not found"));
-        if (!category.isActive()) {
+        if (!category.isActive())
             throw new IllegalArgumentException("PostCategory is not active");
-        }
+
+        category.addPostCount();
+        postCategoryRepository.save(category);
 
         return Posts.builder().title(reqDto.getTitle()).content(reqDto.getContent())
             .userId(user.getId()).categorySlug(category.getSlug()).thumbnailUrl(thumbnailUrl)
