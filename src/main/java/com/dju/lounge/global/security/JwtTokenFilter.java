@@ -33,7 +33,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
         String method = request.getMethod();
         if ((path.startsWith("/api/v1/posts/") && method.equals("GET")) || path.startsWith("/login")
-            || path.startsWith("/images") || path.startsWith("/api/v1/auth/google")) {
+            || path.startsWith("/images") || path.startsWith("/api/v1/auth/google") || path.startsWith("/ws") || path.startsWith("/connect")) {
             filterChain.doFilter(request, response);
             return;
         }

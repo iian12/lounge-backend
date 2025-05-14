@@ -39,7 +39,8 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
         String accessToken = jwtTokenProvider.createAccessToken(userId, ClientConfig.WEB);
         String refreshToken = jwtTokenProvider.createRefreshToken(userId, ClientConfig.WEB);
-
+        log.info("accessToken: {}", accessToken);
+        log.info("refreshToken: {}", refreshToken);
         Cookie accessTokenCookie = TokenUtils.createCookie("access_token", accessToken);
         Cookie refreshTokenCookie = TokenUtils.createCookie("refresh_token", refreshToken);
 
